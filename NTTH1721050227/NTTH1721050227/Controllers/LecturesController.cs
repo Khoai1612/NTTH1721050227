@@ -10,39 +10,39 @@ using NTTH1721050227.Models;
 
 namespace NTTH1721050227.Controllers
 {
-    public class PeopleController : Controller
+    public class LecturesController : Controller
     {
         private LTQLDbContext db = new LTQLDbContext();
         AutoGenerateKey genKey = new AutoGenerateKey();
-        // GET: People
+        // GET: Lectures
         public ActionResult Index()
         {
             return View(db.People.ToList());
         }
 
-        // GET: People/Details/5
+        // GET: Lectures/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Lecture lecture = db.Lectures.Find(id);
+            if (lecture == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(lecture);
         }
 
-        // GET: People/Create
+        // GET: Lectures/Create
         public ActionResult Create()
         {
             var empID = "";
             var countEmployee = db.Students.Count();
             if (countEmployee == 0)
             {
-                empID = "PER002";
+                empID = "LCT002";
             }
             else
             {
@@ -55,76 +55,76 @@ namespace NTTH1721050227.Controllers
             return View();
         }
 
-        // POST: People/Create
+        // POST: Lectures/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PersonID,PersonName")] Person person)
+        public ActionResult Create([Bind(Include = "PersonID,PersonName,Faculty,Department")] Lecture lecture)
         {
             if (ModelState.IsValid)
             {
-                db.People.Add(person);
+                db.Lectures.Add(lecture);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(person);
+            return View(lecture);
         }
 
-        // GET: People/Edit/5
+        // GET: Lectures/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Lecture lecture = db.Lectures.Find(id);
+            if (lecture == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(lecture);
         }
 
-        // POST: People/Edit/5
+        // POST: Lectures/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonID,PersonName")] Person person)
+        public ActionResult Edit([Bind(Include = "PersonID,PersonName,Faculty,Department")] Lecture lecture)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(person).State = EntityState.Modified;
+                db.Entry(lecture).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(person);
+            return View(lecture);
         }
 
-        // GET: People/Delete/5
+        // GET: Lectures/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Lecture lecture = db.Lectures.Find(id);
+            if (lecture == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(lecture);
         }
 
-        // POST: People/Delete/5
+        // POST: Lectures/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Person person = db.People.Find(id);
-            db.People.Remove(person);
+            Lecture lecture = db.Lectures.Find(id);
+            db.People.Remove(lecture);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -27,5 +27,10 @@ namespace NTTH1721050227.Models
             strkey = strPart + strPhanSo;
             return strkey;
         }
+
+        internal string Generatekey(string personID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

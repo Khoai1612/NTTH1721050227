@@ -10,39 +10,39 @@ using NTTH1721050227.Models;
 
 namespace NTTH1721050227.Controllers
 {
-    public class PeopleController : Controller
+    public class StudentsController : Controller
     {
         private LTQLDbContext db = new LTQLDbContext();
         AutoGenerateKey genKey = new AutoGenerateKey();
-        // GET: People
+        // GET: Students
         public ActionResult Index()
         {
-            return View(db.People.ToList());
+            return View(db.Students.ToList());
         }
 
-        // GET: People/Details/5
+        // GET: Students/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Student student = db.Students.Find(id);
+            if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(student);
         }
 
-        // GET: People/Create
+        // GET: Students/Create
         public ActionResult Create()
         {
             var empID = "";
             var countEmployee = db.Students.Count();
             if (countEmployee == 0)
             {
-                empID = "PER002";
+                empID = "STD002";
             }
             else
             {
@@ -55,76 +55,76 @@ namespace NTTH1721050227.Controllers
             return View();
         }
 
-        // POST: People/Create
+        // POST: Students/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PersonID,PersonName")] Person person)
+        public ActionResult Create([Bind(Include = "PersonID,PersonName,University,Address")] Student student)
         {
             if (ModelState.IsValid)
             {
-                db.People.Add(person);
+                db.Students.Add(student);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(person);
+            return View(student);
         }
 
-        // GET: People/Edit/5
+        // GET: Students/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Student student = db.Students.Find(id);
+            if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(student);
         }
 
-        // POST: People/Edit/5
+        // POST: Students/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonID,PersonName")] Person person)
+        public ActionResult Edit([Bind(Include = "PersonID,PersonName,University,Address")] Student student)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(person).State = EntityState.Modified;
+                db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(person);
+            return View(student);
         }
 
-        // GET: People/Delete/5
+        // GET: Students/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Student student = db.Students.Find(id);
+            if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(student);
         }
 
-        // POST: People/Delete/5
+        // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Person person = db.People.Find(id);
-            db.People.Remove(person);
+            Student student = db.Students.Find(id);
+            db.People.Remove(student);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
